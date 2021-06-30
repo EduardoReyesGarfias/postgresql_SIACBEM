@@ -1,0 +1,95 @@
+/*
+Horas basico
+totales
+*/
+SELECT SUM(horas_grupo_base) as horas_basico
+FROM profesor_asignado_base a
+INNER JOIN profesores_profesor_asignado_base b ON a.id_profesor_asignado_base = b.id_profesor_asignado_base
+INNER JOIN plantilla_base_docente_rh c ON c.id_plantilla_base_docente_rh = b.id_plantilla_base_docente_rh
+INNER JOIN empleados d ON d.id_empleado = c.id_empleado
+WHERE c.id_subprograma = 116 AND c.id_estructura_ocupacional = 26
+AND revision_rh = true
+
+/*
+Horas basico
+sin orientacion educativa
+*/
+SELECT SUM(horas_grupo_base) as horas_basico
+FROM profesor_asignado_base a
+INNER JOIN profesores_profesor_asignado_base b ON a.id_profesor_asignado_base = b.id_profesor_asignado_base
+INNER JOIN plantilla_base_docente_rh c ON c.id_plantilla_base_docente_rh = b.id_plantilla_base_docente_rh
+INNER JOIN empleados d ON d.id_empleado = c.id_empleado
+INNER JOIN detalle_materias e ON e.id_detalle_materia = a.id_detalle_materia
+INNER JOIN cat_materias f ON f.id_materia = e.id_materia
+WHERE c.id_subprograma = 116 AND c.id_estructura_ocupacional = 26
+and f.materia NOT like '%ORIENTACIÓN EDUCATIVA%'
+AND revision_rh = true
+
+/*
+Horas Formacion para el trabajo
+*/
+SELECT SUM(horas_grupo_capacitacion) as horas_capacitacion
+FROM profesor_asignado_capacitacion a
+INNER JOIN profesores_profesor_asignado_capacitacion b ON a.id_profesor_asignado_capacitacion = b.id_profesor_asignado_capacitacion
+INNER JOIN plantilla_base_docente_rh c ON c.id_plantilla_base_docente_rh = b.id_plantilla_base_docente_rh
+INNER JOIN empleados d ON d.id_empleado = c.id_empleado
+WHERE c.id_subprograma = 116 AND c.id_estructura_ocupacional = 26
+AND revision_rh = true
+
+/*
+Horas optativas
+*/
+SELECT SUM(horas_grupo_optativas) as horas_optativas
+FROM profesor_asignado_optativas a
+INNER JOIN profesores_profesor_asignado_optativas b ON a.id_profesor_asignado_optativa = b.id_profesor_asignado_optativa
+INNER JOIN plantilla_base_docente_rh c ON c.id_plantilla_base_docente_rh = b.id_plantilla_base_docente_rh
+INNER JOIN empleados d ON d.id_empleado = c.id_empleado
+WHERE c.id_subprograma = 116 AND c.id_estructura_ocupacional = 26
+AND revision_rh = true
+
+/*
+Horas paraescolares
+*/
+SELECT SUM(horas_grupo_paraescolares) as horas_paraescolares
+FROM profesor_asignado_paraescolares a
+INNER JOIN profesores_profesor_asignado_paraescolares b ON a.id_profesor_asignado_paraescolares = b.id_profesor_asignado_paraescolares
+INNER JOIN plantilla_base_docente_rh c ON c.id_plantilla_base_docente_rh = b.id_plantilla_base_docente_rh
+INNER JOIN empleados d ON d.id_empleado = c.id_empleado
+WHERE c.id_subprograma = 116 AND c.id_estructura_ocupacional = 26
+AND revision_rh = true
+
+
+/*
+Horas basico
+NADA MAS DE orientacion educativa
+*/
+SELECT SUM(horas_grupo_base) as horas_basico
+FROM profesor_asignado_base a
+INNER JOIN profesores_profesor_asignado_base b ON a.id_profesor_asignado_base = b.id_profesor_asignado_base
+INNER JOIN plantilla_base_docente_rh c ON c.id_plantilla_base_docente_rh = b.id_plantilla_base_docente_rh
+INNER JOIN empleados d ON d.id_empleado = c.id_empleado
+INNER JOIN detalle_materias e ON e.id_detalle_materia = a.id_detalle_materia
+INNER JOIN cat_materias f ON f.id_materia = e.id_materia
+WHERE c.id_subprograma = 116 AND c.id_estructura_ocupacional = 26
+and f.materia like '%ORIENTACIÓN EDUCATIVA%'
+AND revision_rh = true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	

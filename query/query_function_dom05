@@ -1,0 +1,12 @@
+CREATE FUNCTION dom05_plantilla(id_subprograma int, id_estructura int) 
+RETURNS TABLE(
+	id_plantilla_base_docente_rh int,
+	paterno character,
+	materno character,
+	nombre character,
+	clave character,f.materia as materias_basico,c.horas_grupo_base
+,be.materia as materias_capacitacion, ba.horas_grupo_capacitacion,cd.materia as materias_optativas, ca.horas_grupo_optativas
+,dc.nombre as materias_paraescolares, da.horas_grupo_paraescolares
+)
+    AS $$ SELECT $1, CAST($1 AS text) || ' is text' $$
+    LANGUAGE SQL;

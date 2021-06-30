@@ -1,0 +1,34 @@
+SELECT id_empleado,nombre,paterno,materno
+FROM empleados
+WHERE nombre||' '||paterno||' '||materno in('ALEJANDRO BUSTOS AGUILAR','ROLANDO LÓPEZ VILLASEÑOR','GASPAR ROMERO CAMPOS')
+
+-- 231 Gaspar
+-- 9803 Rolando
+-- 9954 Alejandro
+
+INSERT INTO cat_directores_generales_periodo(id_empleado,qna_desde,qna_hasta,fecha_actualizacion,fecha_sistema) VALUES
+(9803,'201508','201519',now(),now()),
+(9954,'201520','201719',now(),now()),
+(231,'201720','999999',now(),now());
+
+SELECT *
+FROM cat_directores_generales_periodo
+
+SELECT (
+	SELECT prefijo 
+	FROM empleado_grados_academicos ega
+	INNER JOIN cat_grados_academicos cga ON ega.id_grado_academico = cga.id_grado_academico
+	LEFT JOIN curricula_estudios_empleados cee ON cee.id_empleado_grado_academico = ega.id_empleado_grado_academico
+	LEFT JOIN cat_profesiones cp ON cp.id_profesion = cee.id_profesion
+	WHERE ega.id_empleado = a.id_empleado
+	ORDER BY fecha_terminacion 
+	LIMIT 1
+)||' '||b.nombre||' '||b.paterno||' '||b.materno as autoriza
+FROM cat_directores_generales_periodo a
+INNER JOIN empleados b ON a.id_empleado = b.id_empleado
+WHERE 201519 >= CAST(qna_desde as int)
+AND 201519 <= CAST(qna_hasta as int)
+
+SELECT * FROM empleado_grados_academicos
+
+select * from cat_grados_academicos
