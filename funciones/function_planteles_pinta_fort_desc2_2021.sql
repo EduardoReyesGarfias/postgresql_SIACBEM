@@ -87,7 +87,7 @@ BEGIN
 		IF subprograma_mayor_dif = _id_subprograma THEN
 			status := 1;
 		ELSE
-			status := 3;
+			status := 2;
 		END IF;
 
 

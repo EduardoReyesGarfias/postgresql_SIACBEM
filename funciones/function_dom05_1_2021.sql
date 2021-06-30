@@ -86,6 +86,8 @@ DECLARE
 	var_total_hrs_x_trabajador integer;
 	var_total_hrs_asig_todos_planteles integer;
 
+	var_pintar_fort_desc integer;
+
 BEGIN
 	sum_hrs_basi:= 0;
 	sum_hrs_prope:= 0;
@@ -95,7 +97,7 @@ BEGIN
 	sum_hrs_fort_subp:= 0;
 	sum_hrs_desc_subp:= 0;
 	var_filiacion_anterior:= '';
-
+	var_pintar_fort_desc := 0;
 
 	/* CREO TABLA TEMP PARA ACOMODAR LA INFO CON LA ESTRUCTURA DESEADA */
 	CREATE TEMP TABLE temp_planteles_dom05_1(
@@ -365,48 +367,63 @@ BEGIN
 		
 	END LOOP;
 
-	-- 16/04/2021 se cambio el codigo, se subio al for y se separo porque no corria
-	/*UPDATE temp_planteles_dom05_1 
-	SET total_hrs_asignadas = planteles_hrs_totales_asignadas(temp_planteles_dom05_1.filiacion,$1,$2),
-	hrs_fort = COALESCE(planteles_hrs_fort_40_profesor1($1,temp_planteles_dom05_1.filiacion,$2),0),
-	total_hrs_base = planteles_hrs_base_plantel($1,$2,temp_planteles_dom05_1.filiacion),
-	total_hrs_base_x_trabajador = planteles_hrs_base_x_trabajador($2,temp_planteles_dom05_1.filiacion),
-	total_hrs_asignadas_todos_planteles = planteles_hrs_totales_asignadas_todos_planteles(temp_planteles_dom05_1.filiacion,$2);*/
-	
-	UPDATE temp_planteles_dom05_1 
-	SET pintar_fort_desc = planteles_pinta_fort_desc1(temp_planteles_dom05_1.filiacion,temp_planteles_dom05_1.total_hrs_base,$1,$2);
-		
-	
-	/* Distinguir si se pinta o no las de descarga en este plantel */
-	UPDATE temp_planteles_dom05_1 SET hrs_fort_final = 
-	(
-		CASE WHEN temp_planteles_dom05_1.pintar_fort_desc = true THEN
+	--Ver si tiene que pintar o no el fortalecimiento
+	FOR reg IN cur LOOP
+
+		var_pintar_fort_desc:= 0;
+
+		SELECT INTO var_pintar_fort_desc
+		planteles_pinta_fort_desc2(reg.filiacion,$1, $2);
+
+		UPDATE temp_planteles_dom05_1 
+		SET pintar_fort_desc = (CASE WHEN var_pintar_fort_desc = 1 THEN true ELSE false END)
+		WHERE temp_planteles_dom05_1.filiacion = reg.filiacion;
+
+		/* Distinguir si se pinta o no las de descarga en este plantel */
+		UPDATE temp_planteles_dom05_1 SET hrs_fort_final = 
+		(
+			CASE WHEN temp_planteles_dom05_1.pintar_fort_desc = true THEN
+				
+				CASE WHEN (temp_planteles_dom05_1.total_hrs_base - (temp_planteles_dom05_1.total_hrs_asignadas + temp_planteles_dom05_1.hrs_fort)) <0 THEN
+					temp_planteles_dom05_1.hrs_fort + (temp_planteles_dom05_1.total_hrs_base - (temp_planteles_dom05_1.total_hrs_asignadas + temp_planteles_dom05_1.hrs_fort))
+				ELSE
+					temp_planteles_dom05_1.hrs_fort
+				END
 			
-			CASE WHEN (temp_planteles_dom05_1.total_hrs_base - (temp_planteles_dom05_1.total_hrs_asignadas + temp_planteles_dom05_1.hrs_fort)) <0 THEN
-				temp_planteles_dom05_1.hrs_fort + (temp_planteles_dom05_1.total_hrs_base - (temp_planteles_dom05_1.total_hrs_asignadas + temp_planteles_dom05_1.hrs_fort))
-			ELSE
-				temp_planteles_dom05_1.hrs_fort
-			END
-		
-		ELSE
-			0
-		END
-	); 
-	
-	UPDATE temp_planteles_dom05_1 SET hrs_desc = 
-	(
-		CASE WHEN temp_planteles_dom05_1.pintar_fort_desc = true THEN
-			
-			CASE WHEN (temp_planteles_dom05_1.total_hrs_base - (temp_planteles_dom05_1.total_hrs_asignadas + temp_planteles_dom05_1.hrs_fort)) > 0 THEN
-				temp_planteles_dom05_1.total_hrs_base - (temp_planteles_dom05_1.total_hrs_asignadas + temp_planteles_dom05_1.hrs_fort)
 			ELSE
 				0
 			END
+		)
+		WHERE temp_planteles_dom05_1.filiacion = reg.filiacion; 
 		
-		ELSE
-			temp_planteles_dom05_1.total_hrs_base - temp_planteles_dom05_1.total_hrs_asignadas
-		END
-	); 
+		UPDATE temp_planteles_dom05_1 SET hrs_desc = 
+		(
+			CASE WHEN temp_planteles_dom05_1.pintar_fort_desc = true THEN
+				
+				CASE WHEN (temp_planteles_dom05_1.total_hrs_base - (temp_planteles_dom05_1.total_hrs_asignadas + temp_planteles_dom05_1.hrs_fort)) > 0 THEN
+					temp_planteles_dom05_1.total_hrs_base - (temp_planteles_dom05_1.total_hrs_asignadas + temp_planteles_dom05_1.hrs_fort)
+				ELSE
+					0
+				END
+			
+			ELSE
+				temp_planteles_dom05_1.total_hrs_base - temp_planteles_dom05_1.total_hrs_asignadas
+			END
+		)
+		WHERE temp_planteles_dom05_1.filiacion = reg.filiacion; 
+
+		IF var_pintar_fort_desc = 3 THEN
+
+			/*UPDATE temp_planteles_dom05_1
+			SET hrs_desc = temp_planteles_dom05_1.hrs_fort_final
+			WHERE temp_planteles_dom05_1.filiacion = reg.filiacion; 
+			*/ 
+
+		END IF;
+
+
+	END LOOP;
+	
 	
 	/* sumar asignadas para sacar totales por subprograma */
 	--basico
