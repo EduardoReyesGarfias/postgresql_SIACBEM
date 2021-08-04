@@ -412,7 +412,7 @@ BEGIN
 		)
 		WHERE temp_planteles_dom05_1.filiacion = reg.filiacion; 
 
-		IF var_pintar_fort_desc = 3 THEN
+		IF var_pintar_fort_desc = 2 THEN
 
 			/*UPDATE temp_planteles_dom05_1
 			SET hrs_desc = temp_planteles_dom05_1.hrs_fort_final

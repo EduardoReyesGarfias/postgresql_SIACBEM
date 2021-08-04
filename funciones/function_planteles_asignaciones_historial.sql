@@ -67,7 +67,7 @@ BEGIN
 			,e.id_grupo_estructura_base, e.nombre_grupo
 			,f.id_cat_categoria_padre, f.categoria_padre
 			,a.horas_grupo, g.codigo, a.qna_desde, a.qna_hasta, a.doc_acuerdo
-			,planteles_valida_perfil_1(b.id_empleado, c.id_detalle_materia)
+			,planteles_valida_perfil_tf(b.id_empleado, c.id_detalle_materia, 1)
 			,(
 				CASE WHEN (
 					SELECT ba.id_tramite_baja_tiempo_fijo
@@ -190,7 +190,7 @@ BEGIN
 			,e.id_grupo_optativa, e.nombre_grupo_optativas
 			,f.id_cat_categoria_padre, f.categoria_padre
 			,a.horas_grupo, g.codigo, a.qna_desde, a.qna_hasta, a.doc_acuerdo
-			,planteles_valida_perfil_1(b.id_empleado, c.id_detalle_materia)
+			,planteles_valida_perfil_tf(b.id_empleado, c.id_detalle_materia, 2)
 			,(
 				CASE WHEN (
 					SELECT ba.id_tramite_baja_tiempo_fijo
@@ -312,7 +312,7 @@ BEGIN
 			,e.id_grupo_capacitacion, e.nombre_grupo_capacitacion
 			,f.id_cat_categoria_padre, f.categoria_padre
 			,a.horas_grupo, g.codigo, a.qna_desde, a.qna_hasta, a.doc_acuerdo
-			,planteles_valida_perfil_1(b.id_empleado, c.id_detalle_materia)
+			,planteles_valida_perfil_tf(b.id_empleado, c.id_detalle_materia, 3)
 			,(
 				CASE WHEN (
 					SELECT ba.id_tramite_baja_tiempo_fijo
@@ -434,7 +434,7 @@ BEGIN
 		,d.id_grupo_paraescolar, d.nombre
 		,e.id_cat_categoria_padre, e.categoria_padre
 		,a.horas_grupo, f.codigo, a.qna_desde, a.qna_hasta, a.doc_acuerdo
-		,planteles_valida_perfil_1(b.id_empleado, c.id_paraescolar)
+		,planteles_valida_perfil_tf(b.id_empleado, c.id_paraescolar, 4)
 		,(
 			CASE WHEN (
 				SELECT ba.id_tramite_baja_tiempo_fijo
