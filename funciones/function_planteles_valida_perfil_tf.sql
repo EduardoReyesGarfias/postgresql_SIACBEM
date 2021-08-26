@@ -1,4 +1,4 @@
-CREATE FUNCTION planteles_valida_perfil_tf(id_empleado, id_materia)
+CREATE FUNCTION planteles_valida_perfil_tf(id_empleado int, id_materia int, materia text default null )
 RETURNS smallint
 
 AS $$
