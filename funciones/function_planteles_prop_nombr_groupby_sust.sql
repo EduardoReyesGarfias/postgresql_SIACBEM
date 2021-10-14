@@ -15,6 +15,7 @@ RETURNS TABLE(
 	d_mnpio character varying,
 	d_estado character varying,
 	d_ciudad character varying,
+	telefono character varying,
 	grado_academico character varying,
 	profesion character varying,
 	fecha_ingreso date,
@@ -62,6 +63,7 @@ BEGIN
 		d_mnpio character varying,
 		d_estado character varying,
 		d_ciudad character varying,
+		telefono character varying,
 		grado_academico character varying,
 		profesion character varying,
 		fecha_ingreso date,
@@ -99,7 +101,7 @@ BEGIN
 		-- Basico
 		IF(_id_componente = 1) THEN
 
-			INSERT INTO temp_planteles_propuesta_nombramiento(filiacion, nombre_completo, genero, lugar_nacimiento, fecha_nacimiento, nacionalidad, estado_civil, calle, no_ext, no_int, d_codigo, d_asenta, d_mnpio, d_estado, d_ciudad, grado_academico, profesion, fecha_ingreso, fecha_ingreso_sispagos_impresion, categoria_padre, descripcion_cat_padre, horas_grupo, materia, qna_desde, qna_hasta, codigo, descripcion, nombre_subprograma, clave_sep, nombre_grupo, rfc_sustituye, rfc_sustituye_tf)
+			INSERT INTO temp_planteles_propuesta_nombramiento(filiacion, nombre_completo, genero, lugar_nacimiento, fecha_nacimiento, nacionalidad, estado_civil, calle, no_ext, no_int, d_codigo, d_asenta, d_mnpio, d_estado, d_ciudad, telefono, grado_academico, profesion, fecha_ingreso, fecha_ingreso_sispagos_impresion, categoria_padre, descripcion_cat_padre, horas_grupo, materia, qna_desde, qna_hasta, codigo, descripcion, nombre_subprograma, clave_sep, nombre_grupo, rfc_sustituye, rfc_sustituye_tf)
 			SELECT 
 			emp_asign.filiacion,
 			emp_asign.paterno||' '||emp_asign.materno||' '||emp_asign.nombre AS nombre_completo,
@@ -111,10 +113,11 @@ BEGIN
 			UPPER(emp_asign.calle) AS calle,
 			emp_asign.no_ext,
 			emp_asign.no_int,
-			UPPER(cp1.d_asenta) AS d_asenta,
-			UPPER(cp1.d_ciudad) AS d_ciudad,
-			UPPER(cp1.d_estado) AS d_estado,
 			UPPER(cp1.d_codigo) AS d_codigo,
+			UPPER(cp1.d_asenta) AS d_asenta,
+			upper(CP1.d_mnpio) AS d_mnpio,
+			UPPER(cp1.d_estado) AS d_estado,
+			UPPER(cp1.d_ciudad) AS d_ciudad,
 			emp_asign.telefono,
 			(
 				SELECT STRING_AGG(UPPER(vega.grado_academico), ',' ORDER BY vega.nivel_grado_academico DESC )
@@ -218,6 +221,7 @@ BEGIN
 				emp_asign.no_ext,
 				emp_asign.no_int,
 				cp1.d_asenta,
+				cp1.d_mnpio,
 				cp1.d_ciudad,
 				cp1.d_estado,
 				cp1.d_codigo,
@@ -240,7 +244,7 @@ BEGIN
 		-- Optativas
 		IF(_id_componente = 2) THEN
 
-			INSERT INTO temp_planteles_propuesta_nombramiento(filiacion, nombre_completo, genero, lugar_nacimiento, fecha_nacimiento, nacionalidad, estado_civil, calle, no_ext, no_int, d_codigo, d_asenta, d_mnpio, d_estado, d_ciudad, grado_academico, profesion, fecha_ingreso, fecha_ingreso_sispagos_impresion, categoria_padre, descripcion_cat_padre, horas_grupo, materia, qna_desde, qna_hasta, codigo, descripcion, nombre_subprograma, clave_sep, nombre_grupo, rfc_sustituye, rfc_sustituye_tf)
+			INSERT INTO temp_planteles_propuesta_nombramiento(filiacion, nombre_completo, genero, lugar_nacimiento, fecha_nacimiento, nacionalidad, estado_civil, calle, no_ext, no_int, d_codigo, d_asenta, d_mnpio, d_estado, d_ciudad, telefono, grado_academico, profesion, fecha_ingreso, fecha_ingreso_sispagos_impresion, categoria_padre, descripcion_cat_padre, horas_grupo, materia, qna_desde, qna_hasta, codigo, descripcion, nombre_subprograma, clave_sep, nombre_grupo, rfc_sustituye, rfc_sustituye_tf)
 			SELECT 
 			emp_asign.filiacion,
 			emp_asign.paterno||' '||emp_asign.materno||' '||emp_asign.nombre AS nombre_completo,
@@ -252,10 +256,11 @@ BEGIN
 			UPPER(emp_asign.calle) AS calle,
 			emp_asign.no_ext,
 			emp_asign.no_int,
-			UPPER(cp1.d_asenta) AS d_asenta,
-			UPPER(cp1.d_ciudad) AS d_ciudad,
-			UPPER(cp1.d_estado) AS d_estado,
 			UPPER(cp1.d_codigo) AS d_codigo,
+			UPPER(cp1.d_asenta) AS d_asenta,
+			upper(CP1.d_mnpio) AS d_mnpio,
+			UPPER(cp1.d_estado) AS d_estado,
+			UPPER(cp1.d_ciudad) AS d_ciudad,
 			emp_asign.telefono,
 			(
 				SELECT STRING_AGG(UPPER(vega.grado_academico), ',' ORDER BY vega.nivel_grado_academico DESC )
@@ -361,6 +366,7 @@ BEGIN
 				emp_asign.no_int,
 				cp1.d_asenta,
 				cp1.d_ciudad,
+				cp1.d_mnpio,
 				cp1.d_estado,
 				cp1.d_codigo,
 				emp_asign.telefono,
@@ -382,7 +388,7 @@ BEGIN
 		-- Capacitacion
 		IF(_id_componente = 3) THEN
 
-			INSERT INTO temp_planteles_propuesta_nombramiento(filiacion, nombre_completo, genero, lugar_nacimiento, fecha_nacimiento, nacionalidad, estado_civil, calle, no_ext, no_int, d_codigo, d_asenta, d_mnpio, d_estado, d_ciudad, grado_academico, profesion, fecha_ingreso, fecha_ingreso_sispagos_impresion, categoria_padre, descripcion_cat_padre, horas_grupo, materia, qna_desde, qna_hasta, codigo, descripcion, nombre_subprograma, clave_sep, nombre_grupo, rfc_sustituye, rfc_sustituye_tf)
+			INSERT INTO temp_planteles_propuesta_nombramiento(filiacion, nombre_completo, genero, lugar_nacimiento, fecha_nacimiento, nacionalidad, estado_civil, calle, no_ext, no_int, d_codigo, d_asenta, d_mnpio, d_estado, d_ciudad, telefono, grado_academico, profesion, fecha_ingreso, fecha_ingreso_sispagos_impresion, categoria_padre, descripcion_cat_padre, horas_grupo, materia, qna_desde, qna_hasta, codigo, descripcion, nombre_subprograma, clave_sep, nombre_grupo, rfc_sustituye, rfc_sustituye_tf)
 			SELECT 
 			emp_asign.filiacion,
 			emp_asign.paterno||' '||emp_asign.materno||' '||emp_asign.nombre AS nombre_completo,
@@ -394,10 +400,11 @@ BEGIN
 			UPPER(emp_asign.calle) AS calle,
 			emp_asign.no_ext,
 			emp_asign.no_int,
-			UPPER(cp1.d_asenta) AS d_asenta,
-			UPPER(cp1.d_ciudad) AS d_ciudad,
-			UPPER(cp1.d_estado) AS d_estado,
 			UPPER(cp1.d_codigo) AS d_codigo,
+			UPPER(cp1.d_asenta) AS d_asenta,
+			upper(CP1.d_mnpio) AS d_mnpio,
+			UPPER(cp1.d_estado) AS d_estado,
+			UPPER(cp1.d_ciudad) AS d_ciudad,
 			emp_asign.telefono,
 			(
 				SELECT STRING_AGG(UPPER(vega.grado_academico), ',' ORDER BY vega.nivel_grado_academico DESC )
@@ -502,6 +509,7 @@ BEGIN
 				emp_asign.no_ext,
 				emp_asign.no_int,
 				cp1.d_asenta,
+				cp1.d_mnpio,
 				cp1.d_ciudad,
 				cp1.d_estado,
 				cp1.d_codigo,
@@ -524,7 +532,7 @@ BEGIN
 		-- Paraescolares
 		IF (_id_componente = 4) THEN
 			
-			INSERT INTO temp_planteles_propuesta_nombramiento(filiacion, nombre_completo, genero, lugar_nacimiento, fecha_nacimiento, nacionalidad, estado_civil, calle, no_ext, no_int, d_codigo, d_asenta, d_mnpio, d_estado, d_ciudad, grado_academico, profesion, fecha_ingreso, fecha_ingreso_sispagos_impresion, categoria_padre, descripcion_cat_padre, horas_grupo, materia, qna_desde, qna_hasta, codigo, descripcion, nombre_subprograma, clave_sep, nombre_grupo, rfc_sustituye, rfc_sustituye_tf)
+			INSERT INTO temp_planteles_propuesta_nombramiento(filiacion, nombre_completo, genero, lugar_nacimiento, fecha_nacimiento, nacionalidad, estado_civil, calle, no_ext, no_int, d_codigo, d_asenta, d_mnpio, d_estado, d_ciudad, telefono, grado_academico, profesion, fecha_ingreso, fecha_ingreso_sispagos_impresion, categoria_padre, descripcion_cat_padre, horas_grupo, materia, qna_desde, qna_hasta, codigo, descripcion, nombre_subprograma, clave_sep, nombre_grupo, rfc_sustituye, rfc_sustituye_tf)
 			SELECT 
 			emp_asign.filiacion,
 			emp_asign.paterno||' '||emp_asign.materno||' '||emp_asign.nombre AS nombre_completo,
@@ -536,10 +544,11 @@ BEGIN
 			UPPER(emp_asign.calle) AS calle,
 			emp_asign.no_ext,
 			emp_asign.no_int,
-			UPPER(cp1.d_asenta) AS d_asenta,
-			UPPER(cp1.d_ciudad) AS d_ciudad,
-			UPPER(cp1.d_estado) AS d_estado,
 			UPPER(cp1.d_codigo) AS d_codigo,
+			UPPER(cp1.d_asenta) AS d_asenta,
+			upper(CP1.d_mnpio) AS d_mnpio,
+			UPPER(cp1.d_estado) AS d_estado,
+			UPPER(cp1.d_ciudad) AS d_ciudad,
 			emp_asign.telefono,
 			(
 				SELECT STRING_AGG(UPPER(vega.grado_academico), ',' ORDER BY vega.nivel_grado_academico DESC )
@@ -642,6 +651,7 @@ BEGIN
 				emp_asign.no_ext,
 				emp_asign.no_int,
 				cp1.d_asenta,
+				cp1.d_mnpio,
 				cp1.d_ciudad,
 				cp1.d_estado,
 				cp1.d_codigo,
@@ -665,7 +675,7 @@ BEGIN
 		-- basico
 		IF( _id_componente = 1) THEN
 
-			INSERT INTO temp_planteles_propuesta_nombramiento(filiacion, nombre_completo, genero, lugar_nacimiento, fecha_nacimiento, nacionalidad, estado_civil, calle, no_ext, no_int, d_codigo, d_asenta, d_mnpio, d_estado, d_ciudad, grado_academico, profesion, fecha_ingreso, fecha_ingreso_sispagos_impresion, categoria_padre, descripcion_cat_padre, horas_grupo, materia, qna_desde, qna_hasta, codigo, descripcion, nombre_subprograma, clave_sep, nombre_grupo, rfc_sustituye, rfc_sustituye_tf)
+			INSERT INTO temp_planteles_propuesta_nombramiento(filiacion, nombre_completo, genero, lugar_nacimiento, fecha_nacimiento, nacionalidad, estado_civil, calle, no_ext, no_int, d_codigo, d_asenta, d_mnpio, d_estado, d_ciudad, telefono, grado_academico, profesion, fecha_ingreso, fecha_ingreso_sispagos_impresion, categoria_padre, descripcion_cat_padre, horas_grupo, materia, qna_desde, qna_hasta, codigo, descripcion, nombre_subprograma, clave_sep, nombre_grupo, rfc_sustituye, rfc_sustituye_tf)
 			SELECT 
 			emp_asign.filiacion,
 			emp_asign.paterno||' '||emp_asign.materno||' '||emp_asign.nombre AS nombre_completo,
@@ -677,10 +687,11 @@ BEGIN
 			UPPER(emp_asign.calle) AS calle,
 			emp_asign.no_ext,
 			emp_asign.no_int,
-			UPPER(cp1.d_asenta) AS d_asenta,
-			UPPER(cp1.d_ciudad) AS d_ciudad,
-			UPPER(cp1.d_estado) AS d_estado,
 			UPPER(cp1.d_codigo) AS d_codigo,
+			UPPER(cp1.d_asenta) AS d_asenta,
+			upper(CP1.d_mnpio) AS d_mnpio,
+			UPPER(cp1.d_estado) AS d_estado,
+			UPPER(cp1.d_ciudad) AS d_ciudad,
 			emp_asign.telefono,
 			(
 				SELECT STRING_AGG(UPPER(vega.grado_academico), ',' ORDER BY vega.nivel_grado_academico DESC )
@@ -763,6 +774,7 @@ BEGIN
 				emp_asign.no_ext,
 				emp_asign.no_int,
 				cp1.d_asenta,
+				cp1.d_mnpio,
 				cp1.d_ciudad,
 				cp1.d_estado,
 				cp1.d_codigo,
@@ -786,7 +798,7 @@ BEGIN
 		-- Optativas
 		IF (_id_componente = 2) THEN
 			
-			INSERT INTO temp_planteles_propuesta_nombramiento(filiacion, nombre_completo, genero, lugar_nacimiento, fecha_nacimiento, nacionalidad, estado_civil, calle, no_ext, no_int, d_codigo, d_asenta, d_mnpio, d_estado, d_ciudad, grado_academico, profesion, fecha_ingreso, fecha_ingreso_sispagos_impresion, categoria_padre, descripcion_cat_padre, horas_grupo, materia, qna_desde, qna_hasta, codigo, descripcion, nombre_subprograma, clave_sep, nombre_grupo, rfc_sustituye, rfc_sustituye_tf)
+			INSERT INTO temp_planteles_propuesta_nombramiento(filiacion, nombre_completo, genero, lugar_nacimiento, fecha_nacimiento, nacionalidad, estado_civil, calle, no_ext, no_int, d_codigo, d_asenta, d_mnpio, d_estado, d_ciudad, telefono, grado_academico, profesion, fecha_ingreso, fecha_ingreso_sispagos_impresion, categoria_padre, descripcion_cat_padre, horas_grupo, materia, qna_desde, qna_hasta, codigo, descripcion, nombre_subprograma, clave_sep, nombre_grupo, rfc_sustituye, rfc_sustituye_tf)
 			SELECT 
 			emp_asign.filiacion,
 			emp_asign.paterno||' '||emp_asign.materno||' '||emp_asign.nombre AS nombre_completo,
@@ -798,10 +810,11 @@ BEGIN
 			UPPER(emp_asign.calle) AS calle,
 			emp_asign.no_ext,
 			emp_asign.no_int,
-			UPPER(cp1.d_asenta) AS d_asenta,
-			UPPER(cp1.d_ciudad) AS d_ciudad,
-			UPPER(cp1.d_estado) AS d_estado,
 			UPPER(cp1.d_codigo) AS d_codigo,
+			UPPER(cp1.d_asenta) AS d_asenta,
+			upper(CP1.d_mnpio) AS d_mnpio,
+			UPPER(cp1.d_estado) AS d_estado,
+			UPPER(cp1.d_ciudad) AS d_ciudad,
 			emp_asign.telefono,
 			(
 				SELECT STRING_AGG(UPPER(vega.grado_academico), ',' ORDER BY vega.nivel_grado_academico DESC )
@@ -884,6 +897,7 @@ BEGIN
 				emp_asign.no_ext,
 				emp_asign.no_int,
 				cp1.d_asenta,
+				cp1.d_mnpio,
 				cp1.d_ciudad,
 				cp1.d_estado,
 				cp1.d_codigo,
@@ -906,7 +920,7 @@ BEGIN
 		-- Capacitacion
 		IF(_id_componente = 3) THEN
 			
-			INSERT INTO temp_planteles_propuesta_nombramiento(filiacion, nombre_completo, genero, lugar_nacimiento, fecha_nacimiento, nacionalidad, estado_civil, calle, no_ext, no_int, d_codigo, d_asenta, d_mnpio, d_estado, d_ciudad, grado_academico, profesion, fecha_ingreso, fecha_ingreso_sispagos_impresion, categoria_padre, descripcion_cat_padre, horas_grupo, materia, qna_desde, qna_hasta, codigo, descripcion, nombre_subprograma, clave_sep, nombre_grupo, rfc_sustituye, rfc_sustituye_tf)
+			INSERT INTO temp_planteles_propuesta_nombramiento(filiacion, nombre_completo, genero, lugar_nacimiento, fecha_nacimiento, nacionalidad, estado_civil, calle, no_ext, no_int, d_codigo, d_asenta, d_mnpio, d_estado, d_ciudad, telefono, grado_academico, profesion, fecha_ingreso, fecha_ingreso_sispagos_impresion, categoria_padre, descripcion_cat_padre, horas_grupo, materia, qna_desde, qna_hasta, codigo, descripcion, nombre_subprograma, clave_sep, nombre_grupo, rfc_sustituye, rfc_sustituye_tf)
 			SELECT 
 			emp_asign.filiacion,
 			emp_asign.paterno||' '||emp_asign.materno||' '||emp_asign.nombre AS nombre_completo,
@@ -918,10 +932,11 @@ BEGIN
 			UPPER(emp_asign.calle) AS calle,
 			emp_asign.no_ext,
 			emp_asign.no_int,
-			UPPER(cp1.d_asenta) AS d_asenta,
-			UPPER(cp1.d_ciudad) AS d_ciudad,
-			UPPER(cp1.d_estado) AS d_estado,
 			UPPER(cp1.d_codigo) AS d_codigo,
+			UPPER(cp1.d_asenta) AS d_asenta,
+			upper(CP1.d_mnpio) AS d_mnpio,
+			UPPER(cp1.d_estado) AS d_estado,
+			UPPER(cp1.d_ciudad) AS d_ciudad,
 			emp_asign.telefono,
 			(
 				SELECT STRING_AGG(UPPER(vega.grado_academico), ',' ORDER BY vega.nivel_grado_academico DESC )
@@ -971,7 +986,7 @@ BEGIN
 				, ','
 			) AS sustituye_tf
 			FROM asignacion_tiempo_fijo_capacitacion atfb1
-			LEFT JOIN tramites_licencias_asignaciones licencia_asign1 ON licencia_asign1.id_tramite_licencia_asignacion = atfb1.id_tramites_licencias_asignaciones AND tramites_licencias_asignaciones.id_componente = _id_componente
+			LEFT JOIN tramites_licencias_asignaciones licencia_asign1 ON licencia_asign1.id_tramite_licencia_asignacion = atfb1.id_tramites_licencias_asignaciones AND licencia_asign1.id_componente = _id_componente
 			LEFT JOIN tramites_licencias licencia1 ON licencia1.id_tramite_licencia = licencia_asign1.id_tramite_licencia
 			LEFT JOIN empleados emp1 ON emp1.id_empleado = licencia1.id_empleado
 			LEFT JOIN empleados emp_asign ON emp_asign.id_empleado = atfb1.id_empleado
@@ -1004,6 +1019,7 @@ BEGIN
 				emp_asign.no_ext,
 				emp_asign.no_int,
 				cp1.d_asenta,
+				cp1.d_mnpio,
 				cp1.d_ciudad,
 				cp1.d_estado,
 				cp1.d_codigo,
@@ -1026,7 +1042,7 @@ BEGIN
 		-- Paraescolares
 		IF (_id_componente = 4) THEN
 			
-			INSERT INTO temp_planteles_propuesta_nombramiento(filiacion, nombre_completo, genero, lugar_nacimiento, fecha_nacimiento, nacionalidad, estado_civil, calle, no_ext, no_int, d_codigo, d_asenta, d_mnpio, d_estado, d_ciudad, grado_academico, profesion, fecha_ingreso, fecha_ingreso_sispagos_impresion, categoria_padre, descripcion_cat_padre, horas_grupo, materia, qna_desde, qna_hasta, codigo, descripcion, nombre_subprograma, clave_sep, nombre_grupo, rfc_sustituye, rfc_sustituye_tf)
+			INSERT INTO temp_planteles_propuesta_nombramiento(filiacion, nombre_completo, genero, lugar_nacimiento, fecha_nacimiento, nacionalidad, estado_civil, calle, no_ext, no_int, d_codigo, d_asenta, d_mnpio, d_estado, d_ciudad, telefono, grado_academico, profesion, fecha_ingreso, fecha_ingreso_sispagos_impresion, categoria_padre, descripcion_cat_padre, horas_grupo, materia, qna_desde, qna_hasta, codigo, descripcion, nombre_subprograma, clave_sep, nombre_grupo, rfc_sustituye, rfc_sustituye_tf)
 			SELECT 
 			emp_asign.filiacion,
 			emp_asign.paterno||' '||emp_asign.materno||' '||emp_asign.nombre AS nombre_completo,
@@ -1038,10 +1054,11 @@ BEGIN
 			UPPER(emp_asign.calle) AS calle,
 			emp_asign.no_ext,
 			emp_asign.no_int,
-			UPPER(cp1.d_asenta) AS d_asenta,
-			UPPER(cp1.d_ciudad) AS d_ciudad,
-			UPPER(cp1.d_estado) AS d_estado,
 			UPPER(cp1.d_codigo) AS d_codigo,
+			UPPER(cp1.d_asenta) AS d_asenta,
+			upper(CP1.d_mnpio) AS d_mnpio,
+			UPPER(cp1.d_estado) AS d_estado,
+			UPPER(cp1.d_ciudad) AS d_ciudad,
 			emp_asign.telefono,
 			(
 				SELECT STRING_AGG(UPPER(vega.grado_academico), ',' ORDER BY vega.nivel_grado_academico DESC )
@@ -1123,6 +1140,7 @@ BEGIN
 				emp_asign.no_ext,
 				emp_asign.no_int,
 				cp1.d_asenta,
+				cp1.d_mnpio,
 				cp1.d_ciudad,
 				cp1.d_estado,
 				cp1.d_codigo,

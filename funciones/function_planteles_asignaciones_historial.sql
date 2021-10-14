@@ -18,8 +18,10 @@ RETURNS TABLE(
 	perfil int,
 	sustituye_base text,
 	sustituye_base_activo boolean,
+	id_tramites_licencias_asignaciones int,
 	sustituye_tf text,
 	sustituye_tf_activo boolean,
+	id_tramites_licencias_asignaciones_tf int,
 	licencia_tf boolean,
 	licencia_tf_activa boolean,
 	baja_tf boolean,
@@ -49,8 +51,10 @@ BEGIN
 		perfil int,
 		sustituye_base text,
 		sustituye_base_activo boolean,
+		id_tramites_licencias_asignaciones int,
 		sustituye_tf text,
 		sustituye_tf_activo boolean,
+		id_tramites_licencias_asignaciones_tf int,
 		licencia_tf boolean,
 		licencia_tf_activa boolean,
 		baja_tf boolean,
@@ -59,7 +63,7 @@ BEGIN
 
 	IF _id_componente = 1 THEN
 
-		INSERT INTO temp_planteles_asignaciones_tf(id_asignacion, id_componente, id_empleado, nombre_empleado, id_materia, nombre_materia, id_grupo, nombre_grupo, id_cat_categoria_padre, categoria_padre, horas_asignadas, tipo_alta, qna_desde, qna_hasta, doc_acuerdo, perfil, baja_tf, licencia_tf, licencia_tf_activa, sustituye_tf, sustituye_tf_activo, sustituye_base, sustituye_base_activo)
+		INSERT INTO temp_planteles_asignaciones_tf(id_asignacion, id_componente, id_empleado, nombre_empleado, id_materia, nombre_materia, id_grupo, nombre_grupo, id_cat_categoria_padre, categoria_padre, horas_asignadas, tipo_alta, qna_desde, qna_hasta, doc_acuerdo, perfil, baja_tf, licencia_tf, licencia_tf_activa, sustituye_tf, sustituye_tf_activo, sustituye_base, sustituye_base_activo, id_tramites_licencias_asignaciones, id_tramites_licencias_asignaciones_tf)
 		SELECT
 			a.id_asignacion_tiempo_fijo_basico, _id_componente
 			,b.id_empleado, b.paterno||' '||b.materno||' '||b.nombre
@@ -164,6 +168,8 @@ BEGIN
 					false
 				END	
 			) as sustituye_base_activo
+			,a.id_tramites_licencias_asignaciones
+			,a.id_tramites_licencias_asignaciones_tf
 		FROM asignacion_tiempo_fijo_basico a
 		INNER JOIN empleados b ON a.id_empleado = b.id_empleado
 		INNER JOIN detalle_materias c ON c.id_detalle_materia = a.id_detalle_materia
@@ -182,7 +188,7 @@ BEGIN
 
 	ELSIF _id_componente = 2 THEN
 
-		INSERT INTO temp_planteles_asignaciones_tf(id_asignacion, id_componente, id_empleado, nombre_empleado, id_materia, nombre_materia, id_grupo, nombre_grupo, id_cat_categoria_padre, categoria_padre, horas_asignadas, tipo_alta, qna_desde, qna_hasta, doc_acuerdo, perfil, baja_tf, licencia_tf, licencia_tf_activa, sustituye_tf, sustituye_tf_activo, sustituye_base, sustituye_base_activo)
+		INSERT INTO temp_planteles_asignaciones_tf(id_asignacion, id_componente, id_empleado, nombre_empleado, id_materia, nombre_materia, id_grupo, nombre_grupo, id_cat_categoria_padre, categoria_padre, horas_asignadas, tipo_alta, qna_desde, qna_hasta, doc_acuerdo, perfil, baja_tf, licencia_tf, licencia_tf_activa, sustituye_tf, sustituye_tf_activo, sustituye_base, sustituye_base_activo , id_tramites_licencias_asignaciones, id_tramites_licencias_asignaciones_tf)
 		SELECT 
 			a.id_asignacion_tiempo_fijo_optativa, 2
 			,b.id_empleado, b.paterno||' '||b.materno||' '||b.nombre
@@ -287,6 +293,8 @@ BEGIN
 					false
 				END	
 			) as sustituye_base_activo
+			,a.id_tramites_licencias_asignaciones
+			,a.id_tramites_licencias_asignaciones_tf
 		FROM asignacion_tiempo_fijo_optativas a
 		INNER JOIN empleados b ON a.id_empleado = b.id_empleado
 		INNER JOIN detalle_materias c ON c.id_detalle_materia = a.id_detalle_materia
@@ -304,7 +312,7 @@ BEGIN
 
 	ELSIF _id_componente = 3 THEN
 
-		INSERT INTO temp_planteles_asignaciones_tf(id_asignacion, id_componente, id_empleado, nombre_empleado, id_materia, nombre_materia, id_grupo, nombre_grupo, id_cat_categoria_padre, categoria_padre, horas_asignadas, tipo_alta, qna_desde, qna_hasta, doc_acuerdo, perfil, baja_tf, licencia_tf, licencia_tf_activa, sustituye_tf, sustituye_tf_activo, sustituye_base, sustituye_base_activo)
+		INSERT INTO temp_planteles_asignaciones_tf(id_asignacion, id_componente, id_empleado, nombre_empleado, id_materia, nombre_materia, id_grupo, nombre_grupo, id_cat_categoria_padre, categoria_padre, horas_asignadas, tipo_alta, qna_desde, qna_hasta, doc_acuerdo, perfil, baja_tf, licencia_tf, licencia_tf_activa, sustituye_tf, sustituye_tf_activo, sustituye_base, sustituye_base_activo , id_tramites_licencias_asignaciones, id_tramites_licencias_asignaciones_tf)
 		SELECT 
 			a.id_asignacion_tiempo_fijo_capacitacion, 3
 			,b.id_empleado, b.paterno||' '||b.materno||' '||b.nombre
@@ -409,6 +417,8 @@ BEGIN
 					false
 				END	
 			) as sustituye_base_activo
+			,a.id_tramites_licencias_asignaciones
+			,a.id_tramites_licencias_asignaciones_tf
 		FROM asignacion_tiempo_fijo_capacitacion a
 		INNER JOIN empleados b ON a.id_empleado = b.id_empleado
 		INNER JOIN detalle_materias c ON c.id_detalle_materia = a.id_detalle_materia
@@ -426,7 +436,7 @@ BEGIN
 
 	ELSE
 
-		INSERT INTO temp_planteles_asignaciones_tf(id_asignacion, id_componente, id_empleado, nombre_empleado, id_materia, nombre_materia, id_grupo, nombre_grupo, id_cat_categoria_padre, categoria_padre, horas_asignadas, tipo_alta, qna_desde, qna_hasta, doc_acuerdo, perfil, baja_tf, licencia_tf, licencia_tf_activa, sustituye_tf, sustituye_tf_activo, sustituye_base, sustituye_base_activo)
+		INSERT INTO temp_planteles_asignaciones_tf(id_asignacion, id_componente, id_empleado, nombre_empleado, id_materia, nombre_materia, id_grupo, nombre_grupo, id_cat_categoria_padre, categoria_padre, horas_asignadas, tipo_alta, qna_desde, qna_hasta, doc_acuerdo, perfil, baja_tf, licencia_tf, licencia_tf_activa, sustituye_tf, sustituye_tf_activo, sustituye_base, sustituye_base_activo, id_tramites_licencias_asignaciones, id_tramites_licencias_asignaciones_tf)
 		SELECT  
 		a.id_asignacion_tiempo_fijo_paraescolares, 4
 		,b.id_empleado, b.paterno||' '||b.materno||' '||b.nombre
@@ -531,6 +541,8 @@ BEGIN
 				false
 			END	
 		) as sustituye_base_activo
+		,a.id_tramites_licencias_asignaciones
+		,a.id_tramites_licencias_asignaciones_tf
 	FROM asignacion_tiempo_fijo_paraescolares a
 	INNER JOIN empleados b ON a.id_empleado = b.id_empleado
 	INNER JOIN cat_materias_paraescolares c ON c.id_paraescolar = a.id_cat_materias_paraescolares
@@ -593,8 +605,10 @@ BEGIN
 		a.perfil,
 		a.sustituye_base,
 		a.sustituye_base_activo,
+		a.id_tramites_licencias_asignaciones,
 		a.sustituye_tf,
 		a.sustituye_tf_activo,
+		a.id_tramites_licencias_asignaciones_tf,
 		a.licencia_tf,
 		a.licencia_tf_activa,
 		a.baja_tf,
