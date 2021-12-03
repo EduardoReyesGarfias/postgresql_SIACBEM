@@ -91,6 +91,7 @@ BEGIN
 					WHERE 
 						ca.id_asignacion = a.id_asignacion_tiempo_fijo_basico
 						AND ca.id_componente = _id_componente 
+						AND cb.id_cat_tramite_status = 3
 					ORDER BY ca.id_tramite_licencia_asignacion_tf DESC
 					LIMIT 1
 				) > 0 THEN true ELSE false END
@@ -104,6 +105,7 @@ BEGIN
 						ca.id_asignacion = a.id_asignacion_tiempo_fijo_basico
 						AND ca.id_componente = _id_componente 
 						AND cb.fecha_hasta >= CAST(substring(CAST(now() as text),1,10) as date)
+						AND cb.id_cat_tramite_status = 3
 					ORDER BY ca.id_tramite_licencia_asignacion_tf DESC
 					LIMIT 1
 				) > 0 THEN true ELSE false END
@@ -120,6 +122,7 @@ BEGIN
 				WHERE
 					ea.id_componente = _id_componente
 					AND ea.id_tramite_licencia_asignacion_tf = a.id_tramites_licencias_asignaciones_tf
+					AND eb.id_cat_tramite_status = 3
 				ORDER BY eb.id_tramite_licencia DESC
 				LIMIT 1	
 			)as sustituye_tf
@@ -133,6 +136,7 @@ BEGIN
 							da.id_tramite_licencia_asignacion_tf = a.id_tramites_licencias_asignaciones_tf
 							AND dc.fecha_hasta >= CAST(substring(CAST(now() as text),1,10) as date)
 							AND da.id_componente = _id_componente
+							AND dc.id_cat_tramite_status = 3
 					) > 0 THEN true ELSE false END
 				ELSE
 					false
@@ -149,6 +153,7 @@ BEGIN
 				WHERE 
 					gb.id_componente = _id_componente
 					AND a.id_tramites_licencias_asignaciones = gb.id_tramite_licencia_asignacion
+					AND ga.id_cat_tramite_status = 3
 				ORDER BY ga.id_tramite_licencia DESC
 				LIMIT 1
 			)as sustituye_base
@@ -162,6 +167,7 @@ BEGIN
 							a.id_tramites_licencias_asignaciones = gb.id_tramite_licencia_asignacion
 							AND gb.id_componente = _id_componente
 							AND ga.fecha_hasta >= CAST(substring(CAST(now() as text),1,10) as date)
+							AND ga.id_cat_tramite_status = 3
 					) > 0 THEN true ELSE false END
 					
 				ELSE
@@ -216,6 +222,7 @@ BEGIN
 					WHERE 
 						ca.id_asignacion = a.id_asignacion_tiempo_fijo_optativa
 						AND ca.id_componente = _id_componente 
+						AND cb.id_cat_tramite_status = 3
 					ORDER BY ca.id_tramite_licencia_asignacion_tf DESC
 					LIMIT 1
 				) > 0 THEN true ELSE false END
@@ -229,6 +236,7 @@ BEGIN
 						ca.id_asignacion = a.id_asignacion_tiempo_fijo_optativa
 						AND ca.id_componente = _id_componente 
 						AND cb.fecha_hasta >= CAST(substring(CAST(now() as text),1,10) as date)
+						AND cb.id_cat_tramite_status = 3
 					ORDER BY ca.id_tramite_licencia_asignacion_tf DESC
 					LIMIT 1
 				) > 0 THEN true ELSE false END
@@ -245,6 +253,7 @@ BEGIN
 				WHERE
 					ea.id_componente = _id_componente
 					AND ea.id_tramite_licencia_asignacion_tf = a.id_tramites_licencias_asignaciones_tf
+					AND eb.id_cat_tramite_status = 3
 				ORDER BY eb.id_tramite_licencia DESC
 				LIMIT 1	
 			)as sustituye_tf
@@ -258,6 +267,7 @@ BEGIN
 							da.id_tramite_licencia_asignacion_tf = a.id_tramites_licencias_asignaciones_tf
 							AND dc.fecha_hasta >= CAST(substring(CAST(now() as text),1,10) as date)
 							AND da.id_componente = _id_componente
+							AND dc.id_cat_tramite_status = 3
 					) > 0 THEN true ELSE false END
 				ELSE
 					false
@@ -274,6 +284,7 @@ BEGIN
 				WHERE 
 					gb.id_componente = _id_componente
 					AND a.id_tramites_licencias_asignaciones = gb.id_tramite_licencia_asignacion
+					AND ga.id_cat_tramite_status = 3
 				ORDER BY ga.id_tramite_licencia DESC
 				LIMIT 1
 			)as sustituye_base
@@ -287,6 +298,7 @@ BEGIN
 							a.id_tramites_licencias_asignaciones = gb.id_tramite_licencia_asignacion
 							AND gb.id_componente = _id_componente
 							AND ga.fecha_hasta >= CAST(substring(CAST(now() as text),1,10) as date)
+							AND ga.id_cat_tramite_status = 3
 					) > 0 THEN true ELSE false END
 
 				ELSE
@@ -339,7 +351,8 @@ BEGIN
 					INNER JOIN tramites_licencias cb ON cb.id_tramite_licencia = ca.id_tramite_licencia
 					WHERE 
 						ca.id_asignacion = a.id_asignacion_tiempo_fijo_capacitacion
-						AND ca.id_componente = _id_componente 
+						AND ca.id_componente = _id_componente
+						AND cb.id_cat_tramite_status = 3 
 					ORDER BY ca.id_tramite_licencia_asignacion_tf DESC
 					LIMIT 1
 				) > 0 THEN true ELSE false END
@@ -353,6 +366,7 @@ BEGIN
 						ca.id_asignacion = a.id_asignacion_tiempo_fijo_capacitacion
 						AND ca.id_componente = _id_componente 
 						AND cb.fecha_hasta >= CAST(substring(CAST(now() as text),1,10) as date)
+						AND cb.id_cat_tramite_status = 3
 					ORDER BY ca.id_tramite_licencia_asignacion_tf DESC
 					LIMIT 1
 				) > 0 THEN true ELSE false END
@@ -369,6 +383,7 @@ BEGIN
 				WHERE
 					ea.id_componente = _id_componente
 					AND ea.id_tramite_licencia_asignacion_tf = a.id_tramites_licencias_asignaciones_tf
+					AND eb.id_cat_tramite_status = 3
 				ORDER BY eb.id_tramite_licencia DESC
 				LIMIT 1	
 			)as sustituye_tf
@@ -382,6 +397,7 @@ BEGIN
 							da.id_tramite_licencia_asignacion_tf = a.id_tramites_licencias_asignaciones_tf
 							AND dc.fecha_hasta >= CAST(substring(CAST(now() as text),1,10) as date)
 							AND da.id_componente = _id_componente
+							AND dc.id_cat_tramite_status = 3
 					) > 0 THEN true ELSE false END
 				ELSE
 					false
@@ -398,6 +414,7 @@ BEGIN
 				WHERE 
 					gb.id_componente = _id_componente
 					AND a.id_tramites_licencias_asignaciones = gb.id_tramite_licencia_asignacion
+					AND ga.id_cat_tramite_status = 3
 				ORDER BY ga.id_tramite_licencia DESC
 				LIMIT 1
 			)as sustituye_base
@@ -411,6 +428,7 @@ BEGIN
 							a.id_tramites_licencias_asignaciones = gb.id_tramite_licencia_asignacion
 							AND gb.id_componente = _id_componente
 							AND ga.fecha_hasta >= CAST(substring(CAST(now() as text),1,10) as date)
+							AND ga.id_cat_tramite_status = 3
 					) > 0 THEN true ELSE false END
 
 				ELSE
@@ -464,6 +482,7 @@ BEGIN
 				WHERE 
 					ca.id_asignacion = a.id_asignacion_tiempo_fijo_paraescolares
 					AND ca.id_componente = _id_componente 
+					AND cb.id_cat_tramite_status = 3
 				ORDER BY ca.id_tramite_licencia_asignacion_tf DESC
 				LIMIT 1
 			) > 0 THEN true ELSE false END
@@ -477,6 +496,7 @@ BEGIN
 					ca.id_asignacion = a.id_asignacion_tiempo_fijo_paraescolares
 					AND ca.id_componente = _id_componente 
 					AND cb.fecha_hasta >= CAST(substring(CAST(now() as text),1,10) as date)
+					AND cb.id_cat_tramite_status = 3
 				ORDER BY ca.id_tramite_licencia_asignacion_tf DESC
 				LIMIT 1
 			) > 0 THEN true ELSE false END
@@ -493,6 +513,7 @@ BEGIN
 			WHERE
 				ea.id_componente = _id_componente
 				AND ea.id_tramite_licencia_asignacion_tf = a.id_tramites_licencias_asignaciones_tf
+				AND eb.id_cat_tramite_status = 3
 			ORDER BY eb.id_tramite_licencia DESC
 			LIMIT 1	
 		)as sustituye_tf
@@ -506,6 +527,7 @@ BEGIN
 						da.id_tramite_licencia_asignacion_tf = a.id_tramites_licencias_asignaciones_tf
 						AND dc.fecha_hasta >= CAST(substring(CAST(now() as text),1,10) as date)
 						AND da.id_componente = _id_componente
+						AND dc.id_cat_tramite_status = 3
 				) > 0 THEN true ELSE false END
 			ELSE
 				false
@@ -522,6 +544,7 @@ BEGIN
 			WHERE 
 				gb.id_componente = _id_componente
 				AND a.id_tramites_licencias_asignaciones = gb.id_tramite_licencia_asignacion
+				AND ga.id_cat_tramite_status = 3
 			ORDER BY ga.id_tramite_licencia DESC
 			LIMIT 1
 		)as sustituye_base
@@ -535,6 +558,7 @@ BEGIN
 						a.id_tramites_licencias_asignaciones = gb.id_tramite_licencia_asignacion
 						AND gb.id_componente = _id_componente
 						AND ga.fecha_hasta >= CAST(substring(CAST(now() as text),1,10) as date)
+						AND ga.id_cat_tramite_status = 3
 				) > 0 THEN true ELSE false END
 
 			ELSE

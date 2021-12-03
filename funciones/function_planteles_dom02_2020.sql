@@ -95,7 +95,24 @@ BEGIN
 	/* obtengo las plazas del subprograma */
 	INSERT INTO temp_planteles_dom02(id_plaza,filiacion,empleado,categoria,num_plz,descripcion,descripcion_planteles,alta,periodo)
 	SELECT 
-	a.id_plaza,h.filiacion,h.paterno||' '||h.materno||' '||h.nombre as empleado,c.categoria,g.num_plz,c.descripcion,c.descripcion_planteles,
+	a.id_plaza,
+	(
+		CASE WHEN g.fecha_baja IS NULL THEN
+			h.filiacion
+		ELSE
+			null
+		END
+
+	) as filiacion,
+	(
+		CASE WHEN g.fecha_baja IS NULL THEN
+			h.paterno||' '||h.materno||' '||h.nombre
+		ELSE
+			null
+		END
+
+	) as empleado,
+	c.categoria,g.num_plz,c.descripcion,c.descripcion_planteles,
 	(
 	CASE WHEN d.des_tipo_plaza = 'BASE' THEN
 		14
