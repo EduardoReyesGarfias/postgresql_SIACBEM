@@ -190,7 +190,8 @@ BEGIN
                 upper(valida_archivo_reportes)
             END,
             (
-                CASE WHEN NOW()::date BETWEEN fecha_expedicion AND fecha_vigencia THEN 'SI' ELSE 'NO' END
+                --CASE WHEN NOW()::date BETWEEN fecha_expedicion AND fecha_vigencia THEN 'SI' ELSE 'NO' END
+				'SI'
             )
             FROM view_empleado_grados_academicos_actual a
 			INNER JOIN profesiones_materias b ON b.id_profesion = a.id_profesion
