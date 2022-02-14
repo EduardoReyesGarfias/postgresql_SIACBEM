@@ -24,12 +24,17 @@ DECLARE
 				FROM cat_estructuras_ocupacionales
 				WHERE id_estructura_ocupacional = $2;*/
 
-	cur_grupos CURSOR FOR SELECT count(a.nombre_grupo) as num_grupos
+	cur_grupos CURSOR FOR 
+	SELECT 
+		count(a.nombre_grupo) as num_grupos,
+		substring(a.nombre_grupo from 1 for 1)::integer AS semestre
 		,(CASE 
 		   	WHEN substring(a.nombre_grupo from 1 for 1)='2' OR substring(a.nombre_grupo from 1 for 1)='1'  then id_plan_grupo_activo1
 		    WHEN substring(a.nombre_grupo from 1 for 1)='4' OR substring(a.nombre_grupo from 1 for 1)='3' then id_plan_grupo_activo2
 		    WHEN substring(a.nombre_grupo from 1 for 1)='6' OR substring(a.nombre_grupo from 1 for 1)='5' then id_plan_grupo_activo3  
-			    END)id_plan_grupo_activo,GC.id_grupo_combinacion_plan
+			    END
+		)id_plan_grupo_activo,
+		GC.id_grupo_combinacion_plan
 		FROM grupos_estructura_base a
 		INNER JOIN horas_autorizadas b ON b.id_hora_autorizada = a.id_hora_autorizada
 		INNER JOIN grupos c ON b.id_grupo = c.id_grupo
@@ -83,13 +88,25 @@ BEGIN
 	var_vuelta:=1;
 	FOR reg_gpos IN cur_grupos LOOP
     	
-		IF var_vuelta = 1 THEN
+		-- IF var_vuelta = 1 THEN
+		-- 	var_num_grupo1:=reg_gpos.num_grupos;
+		-- 	var_id_plan1:=reg_gpos.id_plan_grupo_activo;
+		-- ELSIF var_vuelta = 2 THEN 	
+		-- 	var_num_grupo2:=reg_gpos.num_grupos;
+		-- 	var_id_plan2:=reg_gpos.id_plan_grupo_activo;
+		-- ELSIF var_vuelta = 3 THEN 	
+		-- 	var_num_grupo3:=reg_gpos.num_grupos;
+		-- 	var_id_plan3:=reg_gpos.id_plan_grupo_activo;
+		-- END IF;	
+
+
+		IF reg_gpos.semestre = 1 OR reg_gpos.semestre = 2 THEN
 			var_num_grupo1:=reg_gpos.num_grupos;
 			var_id_plan1:=reg_gpos.id_plan_grupo_activo;
-		ELSIF var_vuelta = 2 THEN 	
+		ELSIF reg_gpos.semestre = 3 OR reg_gpos.semestre = 4 THEN 	
 			var_num_grupo2:=reg_gpos.num_grupos;
 			var_id_plan2:=reg_gpos.id_plan_grupo_activo;
-		ELSIF var_vuelta = 3 THEN 	
+		ELSIF reg_gpos.semestre = 5 OR reg_gpos.semestre = 6 THEN	
 			var_num_grupo3:=reg_gpos.num_grupos;
 			var_id_plan3:=reg_gpos.id_plan_grupo_activo;
 		END IF;	
