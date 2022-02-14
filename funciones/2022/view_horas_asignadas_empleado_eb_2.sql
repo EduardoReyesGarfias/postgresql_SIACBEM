@@ -16,7 +16,7 @@ COALESCE((
 		CASE WHEN (tl.id_tramite_licencia is not null AND now()::date <= tl.fecha_hasta) THEN 1 ELSE 0 END
 	FROM tramites_licencias_asignaciones tla 
 	INNER JOIN tramites_licencias tl ON tl.id_tramite_licencia = tla.id_tramite_licencia 
-	WHERE tla.id_asignacion = ppa.id_profesor_asignado_base  
+	WHERE tla.id_asignacion = ppa.id_profesores_profesor_asignado_base  
 	AND tla.id_componente = 1
 	AND tl.id_cat_tramite_status = 3
 ),0) AS licencia,
@@ -57,7 +57,7 @@ COALESCE((
 		CASE WHEN (tl.id_tramite_licencia is not null AND now()::date <= tl.fecha_hasta) THEN 1 ELSE 0 END
 	FROM tramites_licencias_asignaciones tla 
 	INNER JOIN tramites_licencias tl ON tl.id_tramite_licencia = tla.id_tramite_licencia 
-	WHERE tla.id_asignacion = ppa.id_profesor_asignado_capacitacion  
+	WHERE tla.id_asignacion = ppa.id_profesores_profesor_asignado_capacitacion  
 	AND tla.id_componente = 3
 	AND tl.id_cat_tramite_status = 3
 ),0) AS licencia,
@@ -98,7 +98,7 @@ COALESCE((
 		CASE WHEN (tl.id_tramite_licencia is not null AND now()::date <= tl.fecha_hasta) THEN 1 ELSE 0 END
 	FROM tramites_licencias_asignaciones tla 
 	INNER JOIN tramites_licencias tl ON tl.id_tramite_licencia = tla.id_tramite_licencia 
-	WHERE tla.id_asignacion = ppa.id_profesor_asignado_optativa  
+	WHERE tla.id_asignacion = ppa.id_profesores_profesor_asignado_optativas  
 	AND tla.id_componente = 2
 	AND tl.id_cat_tramite_status = 3
 ),0) AS licencia,
@@ -139,7 +139,7 @@ COALESCE((
 		CASE WHEN (tl.id_tramite_licencia is not null AND now()::date <= tl.fecha_hasta) THEN 1 ELSE 0 END
 	FROM tramites_licencias_asignaciones tla 
 	INNER JOIN tramites_licencias tl ON tl.id_tramite_licencia = tla.id_tramite_licencia 
-	WHERE tla.id_asignacion = ppa.id_profesor_asignado_paraescolares  
+	WHERE tla.id_asignacion = ppa.id_profesores_profesor_asignado_paraescolares  
 	AND tla.id_componente = 4
 	AND tl.id_cat_tramite_status = 3
 ),0) AS licencia,
