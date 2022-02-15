@@ -30,8 +30,8 @@ INNER JOIN detalle_materias detalle ON detalle.id_detalle_materia = pa.id_detall
 INNER JOIN cat_materias materia ON materia.id_materia = detalle.id_materia
 INNER JOIN grupos_estructura_base gpos ON gpos.id_grupo_estructura_base = pa.id_grupo_estructura_base
 INNER JOIN cat_categorias_padre catego ON catego.id_cat_categoria_padre = plan.id_cat_categoria_padre
-LEFT JOIN tramites_licencias_asignaciones tla ON tla.id_asignacion = ppa.id_profesor_asignado_base  AND tla.id_componente = 1
-LEFT JOIN tramites_licencias tl ON tl.id_tramite_licencia = tla.id_tramite_licencia AND tl.id_cat_tramite_status = 3
+--LEFT JOIN tramites_licencias_asignaciones tla ON tla.id_asignacion = ppa.id_profesor_asignado_base  AND tla.id_componente = 1
+--LEFT JOIN tramites_licencias tl ON tl.id_tramite_licencia = tla.id_tramite_licencia AND tl.id_cat_tramite_status = 3
 LEFT JOIN tramites_bajas_plazas_docente tbp ON tbp.id_plantilla_docente_rh = plan.id_plantilla_base_docente_rh
 LEFT JOIN tramites_bajas tb ON tb.id_tramite_baja = tbp.id_tramite_baja AND tb.id_cat_tramite_status = 3
 WHERE
@@ -152,8 +152,8 @@ INNER JOIN subprogramas subp ON subp.id_subprograma = plan.id_subprograma
 INNER JOIN cat_materias_paraescolares materia ON materia.id_paraescolar = ppa.id_cat_materias_paraescolares
 INNER JOIN grupos_paraescolares gpos ON gpos.id_grupo_paraescolar = pa.id_grupo_paraescolares
 INNER JOIN cat_categorias_padre catego ON catego.id_cat_categoria_padre = plan.id_cat_categoria_padre
-LEFT JOIN tramites_licencias_asignaciones tla ON tla.id_asignacion = ppa.id_profesor_asignado_paraescolares  AND tla.id_componente = 2
-LEFT JOIN tramites_licencias tl ON tl.id_tramite_licencia = tla.id_tramite_licencia AND tl.id_cat_tramite_status = 3
+--LEFT JOIN tramites_licencias_asignaciones tla ON tla.id_asignacion = ppa.id_profesor_asignado_paraescolares  AND tla.id_componente = 2
+--LEFT JOIN tramites_licencias tl ON tl.id_tramite_licencia = tla.id_tramite_licencia AND tl.id_cat_tramite_status = 3
 LEFT JOIN tramites_bajas_plazas_docente tbp ON tbp.id_plantilla_docente_rh = plan.id_plantilla_base_docente_rh
 LEFT JOIN tramites_bajas tb ON tb.id_tramite_baja = tbp.id_tramite_baja AND tb.id_cat_tramite_status = 3
 WHERE
