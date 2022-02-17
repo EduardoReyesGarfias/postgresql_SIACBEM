@@ -19,6 +19,7 @@ COALESCE((
 	WHERE tla.id_asignacion = ppa.id_profesores_profesor_asignado_base  
 	AND tla.id_componente = 1
 	AND tl.id_cat_tramite_status = 3
+	LIMIT 1
 ),0) AS licencia,
 --CASE WHEN (tl.id_tramite_licencia is not null AND now()::date <= tl.fecha_hasta) THEN 1 ELSE 0 END AS licencia,
 CASE WHEN (tb.id_tramite_baja is not null) THEN 1 ELSE 0 END AS baja
@@ -60,6 +61,7 @@ COALESCE((
 	WHERE tla.id_asignacion = ppa.id_profesores_profesor_asignado_capacitacion  
 	AND tla.id_componente = 3
 	AND tl.id_cat_tramite_status = 3
+	LIMIT 1
 ),0) AS licencia,
 -- CASE WHEN (tl.id_tramite_licencia is not null AND now()::date <= tl.fecha_hasta) THEN 1 ELSE 0 END AS licencia,
 CASE WHEN (tb.id_tramite_baja is not null) THEN 1 ELSE 0 END AS baja
@@ -101,6 +103,7 @@ COALESCE((
 	WHERE tla.id_asignacion = ppa.id_profesores_profesor_asignado_optativas  
 	AND tla.id_componente = 2
 	AND tl.id_cat_tramite_status = 3
+	LIMIT 1
 ),0) AS licencia,
 --CASE WHEN (tl.id_tramite_licencia is not null AND now()::date <= tl.fecha_hasta) THEN 1 ELSE 0 END AS licencia,
 CASE WHEN (tb.id_tramite_baja is not null) THEN 1 ELSE 0 END AS baja
@@ -142,6 +145,7 @@ COALESCE((
 	WHERE tla.id_asignacion = ppa.id_profesores_profesor_asignado_paraescolares  
 	AND tla.id_componente = 4
 	AND tl.id_cat_tramite_status = 3
+	LIMIT 1
 ),0) AS licencia,
 --CASE WHEN (tl.id_tramite_licencia is not null AND now()::date <= tl.fecha_hasta) THEN 1 ELSE 0 END AS licencia,
 CASE WHEN (tb.id_tramite_baja is not null) THEN 1 ELSE 0 END AS baja
