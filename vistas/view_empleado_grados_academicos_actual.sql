@@ -31,7 +31,8 @@ SELECT
 	cat.nivel_grado_academico,
 	profesion.id_profesion,
 	ingles.fecha_expedicion,
-	ingles.fecha_vigencia
+	ingles.fecha_vigencia,
+	ARRAY_AGG(archivos.ruta_archivo) AS ruta_archivo_array
 FROM empleados emp
 LEFT JOIN empleado_grados_academicos grados ON emp.id_empleado = grados.id_empleado
 LEFT JOIN cat_grados_academicos cat ON cat.id_grado_academico = grados.id_grado_academico
