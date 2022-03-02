@@ -197,7 +197,8 @@ BEGIN
 						CAST(COALESCE(atfb2.id_detalle_materia,'0') AS text)||
 						CAST(COALESCE(atfb2.id_subprograma,'0') AS text)||
 						CAST(COALESCE(atfb2.id_estructura_ocupacional,'0') AS text)||
-						COALESCE(emp2.paterno||emp2.materno||emp2.nombre, '')
+						COALESCE(emp2.paterno||emp2.materno||emp2.nombre, '')||''||
+						COALESCE(emp_tf2.paterno||emp_tf2.materno||emp_tf2.nombre,'')
 					FROM asignacion_tiempo_fijo_basico atfb2
 					LEFT JOIN tramites_licencias_asignaciones licencia_asign2 ON licencia_asign2.id_tramite_licencia_asignacion = atfb2.id_tramites_licencias_asignaciones AND licencia_asign2.id_componente = _id_componente
 					LEFT JOIN tramites_licencias licencia2 ON licencia2.id_tramite_licencia = licencia_asign2.id_tramite_licencia
@@ -627,7 +628,8 @@ BEGIN
 						CAST(COALESCE(atfb2.id_cat_materias_paraescolares,'0') AS text)||
 						CAST(COALESCE(atfb2.id_subprograma,'0') AS text)||
 						CAST(COALESCE(atfb2.id_estructura_ocupacional,'0') AS text)||
-						COALESCE(emp2.paterno||emp2.materno||emp2.nombre, '')
+						COALESCE(emp2.paterno||emp2.materno||emp2.nombre, '')||''||
+						COALESCE(emp_tf2.paterno||emp_tf2.materno||emp_tf2.nombre,'')
 					FROM asignacion_tiempo_fijo_paraescolares atfb2
 					LEFT JOIN tramites_licencias_asignaciones licencia_asign2 ON licencia_asign2.id_tramite_licencia_asignacion = atfb2.id_tramites_licencias_asignaciones AND licencia_asign2.id_componente = _id_componente
 					LEFT JOIN tramites_licencias licencia2 ON licencia2.id_tramite_licencia = licencia_asign2.id_tramite_licencia

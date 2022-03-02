@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION planteles_valida_perfil_tf_1(_id_empleado int, _id_materia int, _id_estructura int,  _id_componente int default 1, _id_grupo int default null)
+CREATE OR REPLACE FUNCTION planteles_valida_perfil_tf_2(_id_empleado int, _id_materia int, _id_estructura int,  _id_componente int default 1, _id_grupo int default null)
 RETURNS smallint
 AS $$
 DECLARE

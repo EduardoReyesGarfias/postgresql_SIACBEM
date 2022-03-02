@@ -39,30 +39,8 @@ DECLARE
                     b.categoria_padre
             ),0) AS hrs_usadas,
             COALESCE((
-                SELECT 
-                    tlpd.hrs_licencia - 
-                    SUM(
-                        COALESCE(ppab.horas_grupo_base,0) +
-                        COALESCE(ppac.horas_grupo_capacitacion,0) +
-                        COALESCE(ppao.horas_grupo_optativas,0) +
-                        COALESCE(ppap.horas_grupo_paraescolares,0)
-                    ) hrs_descarga	
-                FROM tramites_licencias tl
-                INNER JOIN tramites_licencias_plazas_docente tlpd ON tlpd.id_tramite_licencia = tl.id_tramite_licencia
-                LEFT JOIN tramites_licencias_asignaciones tla ON tla.id_tramite_licencia = tl.id_tramite_licencia
-                LEFT JOIN profesores_profesor_asignado_base ppab ON ppab.id_profesores_profesor_asignado_base = tla.id_asignacion AND tla.id_componente = 1
-                LEFT JOIN profesores_profesor_asignado_capacitacion ppac ON ppac.id_profesores_profesor_asignado_capacitacion = tla.id_asignacion AND tla.id_componente = 3
-                LEFT JOIN profesores_profesor_asignado_optativas ppao ON ppao.id_profesores_profesor_asignado_optativas = tla.id_asignacion AND tla.id_componente = 2
-                LEFT JOIN profesores_profesor_asignado_paraescolares ppap ON ppap.id_profesores_profesor_asignado_paraescolares = tla.id_asignacion AND tla.id_componente = 4
-                WHERE
-                    tl.id_empleado = _id_empleado
-                    AND tl.id_estructura_ocupacional = _id_estructura_ocupacional
-                    AND tl.id_cat_tramite_status = 3
-                    AND tlpd.id_plantilla_base_docente_rh = a.id_plantilla_base_docente_rh
-                    AND (now()::date BETWEEN tl.fecha_desde AND tl.fecha_hasta )
-                GROUP BY
-                    tlpd.hrs_licencia,
-                    tlpd.id_plantilla_base_docente_rh
+               SELECT *
+               FROM planteles_hrs_descarga_en_licencia(_id_empleado, _id_estructura_ocupacional, a.id_plantilla_base_docente_rh)
             ),0) AS hrs_desc_en_lic,
             COALESCE((
                 SELECT 
