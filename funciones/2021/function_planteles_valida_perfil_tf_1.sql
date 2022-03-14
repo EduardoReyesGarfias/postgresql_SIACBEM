@@ -158,6 +158,18 @@ BEGIN
 							CASE WHEN(planteles_valida_perfil_tf_complementa_grupo is true) THEN 1 ELSE 0 END
 							FROM planteles_valida_perfil_tf_complementa_grupo(_id_empleado, _id_estructura, _id_grupo);
 
+							IF(cumple_perfil = 0) THEN
+
+								SELECT INTO cumple_perfil
+									CASE WHEN (id_profesor_habilitado > 0) THEN 1 ELSE 0 END
+								FROM profesores_habilitados
+								WHERE 
+									id_empleado = _id_empleado
+									AND id_estructura_ocupacional = _id_estructura
+									AND id_detalle_materia = _id_materia;
+
+							END IF;
+
 
 						END IF;
 						
@@ -291,7 +303,20 @@ BEGIN
 						*/
 						SELECT INTO cumple_perfil
 						CASE WHEN(planteles_valida_perfil_tf_complementa_grupo is true) THEN 1 ELSE 0 END
-						FROM planteles_valida_perfil_tf_complementa_grupo(_id_empleado, _id_estructura, _id_grupo);			
+						FROM planteles_valida_perfil_tf_complementa_grupo(_id_empleado, _id_estructura, _id_grupo);	
+
+
+						IF(cumple_perfil = 0) THEN
+
+							SELECT INTO cumple_perfil
+								CASE WHEN (id_profesor_habilitado > 0) THEN 1 ELSE 0 END
+							FROM profesores_habilitados
+							WHERE 
+								id_empleado = _id_empleado
+								AND id_estructura_ocupacional = _id_estructura
+								AND id_detalle_materia = _id_materia;
+
+						END IF;		
 
 					END IF;
 
@@ -343,7 +368,19 @@ BEGIN
 					*/
 					SELECT INTO cumple_perfil
 					CASE WHEN(planteles_valida_perfil_tf_complementa_grupo is true) THEN 1 ELSE 0 END
-					FROM planteles_valida_perfil_tf_complementa_grupo(_id_empleado, _id_estructura, _id_grupo);			
+					FROM planteles_valida_perfil_tf_complementa_grupo(_id_empleado, _id_estructura, _id_grupo);	
+
+					IF(cumple_perfil = 0) THEN
+
+						SELECT INTO cumple_perfil
+							CASE WHEN (id_profesor_habilitado > 0) THEN 1 ELSE 0 END
+						FROM profesores_habilitados
+						WHERE 
+							id_empleado = _id_empleado
+							AND id_estructura_ocupacional = _id_estructura
+							AND id_detalle_materia = _id_materia;
+
+					END IF;		
 
 				END IF;	
 
@@ -385,7 +422,19 @@ BEGIN
 				*/
 				SELECT INTO cumple_perfil
 				CASE WHEN(planteles_valida_perfil_tf_complementa_grupo is true) THEN 1 ELSE 0 END
-				FROM planteles_valida_perfil_tf_complementa_grupo(_id_empleado, _id_estructura, _id_grupo);		
+				FROM planteles_valida_perfil_tf_complementa_grupo(_id_empleado, _id_estructura, _id_grupo);	
+
+				IF(cumple_perfil = 0) THEN
+
+					SELECT INTO cumple_perfil
+						CASE WHEN (id_profesor_habilitado > 0) THEN 1 ELSE 0 END
+					FROM profesores_habilitados
+					WHERE 
+						id_empleado = _id_empleado
+						AND id_estructura_ocupacional = _id_estructura
+						AND id_detalle_materia = _id_materia;
+
+				END IF;	
 
 			END IF;
 

@@ -110,12 +110,12 @@ BEGIN
     FOR reg IN cur LOOP
 
         -- Saber si hago cambio de clave o no
-        /*IF (reg.id_cat_categoria_padre NOT IN (78, 79)) THEN
+        IF (reg.id_cat_categoria_padre NOT IN (78, 79)) THEN
 
             _id_categoria_equivalente:= reg.id_cat_categoria_padre;
             _categoria_equivalente:= reg.categoria_padre;
 
-        END IF;*/
+        END IF;
 
 
         IF(_hsm > 0) THEN
