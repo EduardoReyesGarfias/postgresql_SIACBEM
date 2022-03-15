@@ -513,14 +513,14 @@ function get_data($ids_nomina){
 					f.clave_sep||'|'||e.nombre_subprograma
 				END		
 			) as clave_sep,
-			-- b.categoria,
-			(
+			b.categoria,
+			/*(
 				CASE 
 					WHEN nueva_categoria is not null AND b.categoria = 'CF01005' THEN nueva_categoria
 					WHEN b.categoria = 'CBV' THEN 'CBIV'
 				ELSE b.categoria
 				END		
-			) as categoria,
+			) as categoria,*/
 			b.numero_hr,
 			g.id_pago,
 			string_agg(DISTINCT CAST(g.desde_pag as text),',') as desde_pag,
@@ -563,7 +563,7 @@ function get_data($ids_nomina){
 			a.consecu,
 			b.clave_tipo_nombramiento,
 			cat_nomb.descripcion,
-			STRING_AGG(
+			/*STRING_AGG(
 				(
 				-- Si es categoria CBV y codigo 60 y es nomina ordinaria
 				CASE 
@@ -588,6 +588,10 @@ function get_data($ids_nomina){
 						g.cod_pd||'**'||g.importe
 				END			
 			), ',' ORDER BY g.cod_pd ASC
+			) as codigos,*/
+			STRING_AGG(
+				g.cod_pd||'**'||g.importe
+				, ',' ORDER BY g.cod_pd ASC
 			) as codigos,
 			a.id_tipo_nomina,
 			b.categoria as categoria_original,
@@ -793,7 +797,7 @@ function draw_body( $file, $data, $conceptos, $array_excedente ){
 		list($clave_sep, $nombre_subprograma) = explode('|', $row['clave_sep']);
 
 		// list($clave_sep, $nombre_subprograma) = comision_a_base( $row['filiacion'] , $nombre_subprograma, $clave_sep );
-		// list($categoria, $array_excedente) = cambia_categoria( $row['categoria'], $array_excedente, $row['qnapago'], trim($row['id_tipo_nomina']) );
+		list($categoria, $array_excedente) = cambia_categoria( $row['categoria'], $array_excedente, $row['qnapago'], trim($row['id_tipo_nomina']) );
 		
 		$cellBody = $posiciones;
 		$cellBody[0] = 'MICHOACAN';
