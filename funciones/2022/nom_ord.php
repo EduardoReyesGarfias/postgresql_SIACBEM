@@ -485,7 +485,7 @@ function get_data($ids_nomina){
 			d.paterno||' '||d.materno||' '||d.nombre as nom_emp,
 			d.id_empleado,
 			-- f.clave_sep,
-			(
+			/*(
 				CASE WHEN CAST(e.clave_extension_u_organica as int) > 600 AND CAST(e.clave_extension_u_organica as int) < 700  THEN
 					(
 					SELECT 
@@ -512,7 +512,8 @@ function get_data($ids_nomina){
 				ELSE
 					f.clave_sep||'|'||e.nombre_subprograma
 				END		
-			) as clave_sep,
+			)*/
+			( f.clave_sep||'|'||e.nombre_subprograma) as clave_sep,
 			b.categoria,
 			/*(
 				CASE 
